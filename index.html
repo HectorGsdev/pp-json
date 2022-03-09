@@ -61,7 +61,9 @@
            ((search1 != search2) && item.name.toLowerCase().includes(search1) &&
              item.name.toLowerCase().includes(search2))) {
           // print out name and info
-          $("#output").append("<p>Item: " + index + " - " + item.name + " issued: "+ item.awarded.issued+"<br>"
+          $("#output").append("<p>Item: " + index + " - " + item.name + " issued: "+ item.awarded.issued+"<br>" +
+          " organization: "+ item['military record'].organization + "<br>" +
+          " Company: "+ item['military record'].company + "<br>"
             + " - " + item.awarded.citation + "<br>" + item.metadata.link + "</p>");
           // flag wil skip the 'name not found' if case
           test = true;
