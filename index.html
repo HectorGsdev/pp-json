@@ -9,14 +9,39 @@
 </head>
 <body>
 
-<h1>Medal of Honor Ajax</h1>
+<h1>Medal of Honor Recipients Json Ajax</h1>
 
-<label>Enter a medal recipient's name:
-  <input type="text" id="search">
-</label>
-<button id="get">Get Recipient Info</button>
 
+
+<button id="get">Get Medal of Honor Recipients</button>
 <div id="output"></div>
+
+<script src="//code.jquery.com/jquery.js"></script>
+
+<script>
+  $("#get").on("click", function(){
+
+    $.getJSON("medal_of_honor.json", function(result) {
+
+      $.each(result, function(index, item) {
+
+
+        $("#output").append(index + " - " + item.name + " issued: "+ item.awarded.issued+"<br>"
+                + " - " + item.awarded.citation+ "<br>" + item.metadata.link + "<br><br>");
+
+        // $("#output").append(index + " - " + item.firstName
+        //         + " " + item.lastName + ", " + item.gpa + "<br>");
+
+
+      });
+    });
+  });
+</script>
+
+
+
+
+
 
 </body>
 </html>
