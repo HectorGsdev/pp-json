@@ -11,34 +11,58 @@
 
 <h1>Medal of Honor Recipients Json Ajax</h1>
 
-<!--<label>Enter a medal recipient's name:-->
-<!--  <input type="text" id="search">-->
-<!--</label>-->
-<!--<button id="get">Get Recipient Info</button>-->
+<label>Enter a medal recipient's last name:
+  <input type="text" id="search">
+</label>
+<button id="get">Get Recipient Info</button>
 
-
-
-<button id="get">Get Medal of Honor Recipients</button>
 <div id="output"></div>
 
 <script src="//code.jquery.com/jquery.js"></script>
 
 <script>
-  $("#get").on("click", function(){
+  $("#get").on("click", function() {
 
+    // clean input
+    let search = $("#search").val().toLowerCase().trim();
+    // if first and last were provided, we split them
+    let search1 = '';
+    let search2 = '';
+    if (search.indexOf(' ') != -1) {
+      search = search.split(' ');
+      search1 = search[0];
+      search2 = search[1];
+    } else {
+      search1 = search;
+      search2 = search;
+    }
+
+    // clear previous
+    $("#output").html("");
+
+    // get the json and run function
     $.getJSON("medal_of_honor.json", function(result) {
 
+      // flag for when there is no return
+      let test = false;
+      // iterate all recipients
       $.each(result, function(index, item) {
 
-
-        $("#output").append(index + " - " + item.name + " issued: "+ item.awarded.issued+"<br>"
-                + " - " + item.awarded.citation+ "<br>" + item.metadata.link + "<br><br>");
-
-        // $("#output").append(index + " - " + item.firstName
-        //         + " " + item.lastName + ", " + item.gpa + "<br>");
-
-
+        // if there is a match with either name when only 1 name was entered
+        if ( ((search1 == search2) && item.name.toLowerCase().includes(search1)) ||
+           ((search1 != search2) && item.name.toLowerCase().includes(search1) &&
+             item.name.toLowerCase().includes(search2))) {
+          // print out name and info
+          $("#output").append("<p>Item: " + index + " - " + item.name + " issued: "+ item.awarded.issued+"<br>"
+            + " - " + item.awarded.citation + "<br>" + item.metadata.link + "</p>");
+          // flag wil skip the 'name not found' if case
+          test = true;
+        }
       });
+      // print not found message if we never had a match
+      if (test === false) {
+        $("#output").append('Name not found');
+      }
     });
   });
 </script>
