@@ -1,4 +1,13 @@
 <!doctype html>
+<!--
+* @author: Hector Gonzalez, Kevin Price
+* @date: March 8, 2022
+* @filename: index.html
+* @description: Page searches a JSON for medal of honor recipient info by name
+*
+* @JSON file courtesy of CORGIS data sets:
+* https://think.cs.vt.edu/corgis/json/medal_of_honor/
+-->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -11,9 +20,8 @@
 
 <h1>Medal of Honor Recipients Json Ajax</h1>
 
-<label>Enter a medal recipient's last name:
-  <input type="text" id="search">
-</label>
+<label>Enter a medal recipient's first and last name, or only their first or last name:</label><br>
+<input type="text" id="search">
 <button id="get">Get Recipient Info</button>
 
 <div id="output"></div>
@@ -66,11 +74,6 @@
     });
   });
 </script>
-
-
-
-
-
 
 </body>
 </html>
